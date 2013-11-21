@@ -1,3 +1,7 @@
+CheckOut的时候选择新建Dynamic Web Project项目
+
+
+
 Spring中的注解annotaion的介绍
 1.@Component  来表示一个通用注释用于说明一个类是一个spring容器管理的类。即就是该类已经拉入到spring的管理中了。
 2.@Controller 控制层
