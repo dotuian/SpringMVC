@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:mvc="http://www.springframework.org/schema/mvc" xmlns:util="http://www.springframework.org/schema/util"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+						http://www.springframework.org/schema/beans/spring-beans-3.2.xsd
+                        http://www.springframework.org/schema/mvc 
+                        http://www.springframework.org/schema/mvc/spring-mvc-3.2.xsd
+                        http://www.springframework.org/schema/util 
+                        http://www.springframework.org/schema/util/spring-util-3.2.xsd
+                        http://www.springframework.org/schema/context  
+                        http://www.springframework.org/schema/context/spring-context-3.2.xsd">
+
+    <!-- 定义异常处理页面 -->
+    <bean id="exceptionResolver" class="org.springframework.web.servlet.handler.SimpleMappingExceptionResolver">
+        <property name="exceptionMappings">
+            <props>
+                <prop key="java.lang.Exception">common/error</prop>
+            </props>
+        </property>
+    </bean>
+    
+
+    <!-- 解析Properties属性文件的值，在Spring配置文件中使用Properties属性文件的值 -->
+	<bean id="propertyConfigurer" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+		<property name="location">
+			<value>/WEB-INF/database.properties</value>
+		</property>
+	</bean> 
+
+	<!-- 配置数据源，使用数据库连接池 -->
+	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource">
+		<property name="driverClassName" value="${datasource.driver}"></property>
+		<property name="url" value="${datasource.connection}"></property>
+		<property name="username" value="${datasource.username}"></property>
+		<property name="password" value="${datasource.password}"></property>
+		
+        <!-- Connection Pooling DBCP -->  
+        <property name="initialSize" value="5" />  
+        <property name="maxActive" value="100" />  
+        <property name="maxIdle" value="30" />  
+        <property name="maxWait" value="1000" />  
+        <property name="poolPreparedStatements" value="true" />  
+        <property name="defaultAutoCommit" value="false" />  
+	</bean>
+
+
+    <!-- 这里的dataSource要与sqlSessionFactory的dataSource一致，否则事务无效 -->  
+    <bean id="transactionManager"  
+        class="org.springframework.jdbc.datasource.DataSourceTransactionManager">  
+        <property name="dataSource" ref="dataSource" />  
+    </bean>  
+  
+    <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">  
+        <property name="dataSource" ref="dataSource" />
+        <property name="configLocation" value="classpath:com/dotuian/dao/SqlMapConfig.xml"></property>  
+    </bean>
+
+	<!-- 配置sqlSessionTemplate -->
+	<bean id="sqlSessionTemplate" class="org.mybatis.spring.SqlSessionTemplate">
+		<constructor-arg index="0" ref="sqlSessionFactory" />
+	</bean>
+
+	<!-- mybatis自动装载mapper的xml文件 -->
+	<bean id="mybatisMapperScannerConfigure" class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+		<property name="basePackage" value="com.dotuian.dao.sqlmap" />
+	</bean>
+
+</beans>

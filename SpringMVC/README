@@ -1,0 +1,14 @@
+Spring中的注解annotaion的介绍
+1.@Component  来表示一个通用注释用于说明一个类是一个spring容器管理的类。即就是该类已经拉入到spring的管理中了。
+2.@Controller 控制层
+3.@Service    服务层
+4.@Repository 持久层
+通过上面的注解定义的Bean，默认是将类名首字母小写作为Bean的名称。可以通过@Service("name")来自定义Bean的名称
+
+※http://www.ibm.com/developerworks/cn/opensource/os-cn-spring-iocannt/
+
+
+
+
+
+

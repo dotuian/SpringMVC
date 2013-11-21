@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- 这里的namespace名字必须为执行该sql的dao地址  -->
+<mapper namespace="for com.dotuian.dao.sqlmap.UserMapper">
+	
+	<!-- 共同部分的定义 -->
+    <resultMap id="userResultMap" type="com.dotuian.dao.entity.UserEntity">
+      <id property="id" column="id" />
+      <result property="username" column="username"/>
+      <result property="password" column="password"/>
+      <result property="sex" column="sex"/>
+      <result property="birthday" column="birthday"/>
+      <result property="hobby" column="hobby"/>
+      <result property="salary" column="salary"/>
+      <result property="memo" column="memo"/>
+    </resultMap>
+    
+    <!-- 获取用户总数 -->
+    <select id="selectUserCount" resultType="int" >
+        <![CDATA[
+            SELECT COUNT(*) FROM USER 
+        ]]>
+    </select>
+
+	<!--  -->
+	<select id="selectUserById" parameterType="String"
+		resultType="com.dotuian.dao.entity.UserEntity" resultMap="userResultMap">  
+        <![CDATA[ 
+            SELECT * FROM USER WHERE ID =  #{id}
+        ]]>
+	</select>
+	
+    <!--  -->
+	<select id="selectUserByName" parameterType="java.lang.String" resultType="com.dotuian.dao.entity.UserEntity">
+        <![CDATA[ 
+            select * from USER where username = #{username}
+        ]]>
+	</select>
+
+
+	<select id="selectAllUser" resultType="java.util.List" resultMap="userResultMap">  
+        <![CDATA[ 
+            SELECT * FROM USER
+        ]]>
+	</select>
+
+    <!--  -->
+    <insert id="insertUser" parameterType="com.dotuian.dao.entity.UserEntity" useGeneratedKeys="true" keyProperty="id">
+		<![CDATA[ 
+        INSERT INTO USER
+        (username,password,sex,birthday,hobby,salary,memo)
+        VALUES
+        (#{username},#{password},#{sex},#{birthday},#{hobby},#{salary},#{memo})
+		]]>
+    </insert>
+
+    <!--  -->
+    <update id="updateUser" parameterType="com.dotuian.dao.entity.UserEntity">
+        UPDATE USER SET
+	        username = #{username},
+	        password = #{password},
+	        sex = #{sex},
+	        birthday = #{birthday},
+	        hobby = #{hobby},
+	        salary = #{salary},
+	        memo = #{memo} 
+        WHERE 
+            id = #{id}
+    </update>
+
+    <delete id="deleteUser" parameterType="int">
+        DELETE FROM USER WHERE id = #{id}
+    </delete>
+
+</mapper>
