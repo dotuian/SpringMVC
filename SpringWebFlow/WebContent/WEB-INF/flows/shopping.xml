@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<flow xmlns="http://www.springframework.org/schema/webflow"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/webflow
+ http://www.springframework.org/schema/webflow/spring-webflow-2.0.xsd">
+
+<!-- 
+在 Spring Web Flow 中，业务逻辑代码的执行可由以下三种情形来触发：
+1.客户端请求中包含了 _eventId 参数
+    这种方式一般用在 state 之间的 transition ，通过指定 _eventId 参数的值，表明了客户的行为，从而导致相应事件的发生，
+    在 Spring Web Flow 的定义文件中可以通过 evaluate 元素来指定要处理的业务逻辑
+
+2.执行到框架自定义的切入点(Spring Web Flow 自定义的切入点)
+    切入点名称       XML 元素名称    触发时刻
+  flow start   on-start      flow 执行之前
+  state entry  on-entry      进入某个 state 之后，做其他事情之前
+  view render  on-render     在进入 view 的 render 流程之后，在 view 真正 render出来之前
+  state exit   on-exit       在退出 state 之前
+  flow end     on-end        flow 执行结束之后
+
+3.执行到 <action-state> 元素
+
+ -->
+
+	<var name="mycart" class="samples.webflow.Cart" />
+   
+    <!-- 触发时刻:flow 执行之前 -->
+	<on-start>
+		<set name="conversationScope.cart" value="mycart"></set>
+	</on-start>
+    
+    <!-- 
+        view-state 元素中指定了 view 属性的名字，这个名字也是 Spring Web MVC 中 viewResolver 所查找的 view 的名字。
+     -->
+	<view-state id="viewCart" view="viewCart">
+	   <!-- on-render定义执行的业务逻辑代码。在进入 view 的 render 流程之后，在 view 真正 render出来之前执行 -->
+		<on-render>
+			<evaluate expression="productService.getProducts()" result="viewScope.products" />
+		</on-render>
+		
+		<transition on="returnToIndex" to="returnToIndex" />
+		<transition on="submit" to="viewOrder" />
+		<transition on="addToCart" to="addProductToCart" />
+	</view-state>
+	<subflow-state id="addProductToCart" subflow="addToCart">
+		<transition on="productAdded" to="viewCart" />
+	</subflow-state>
+
+
+	<view-state id="viewOrder" view="viewOrder">
+	   <!-- 请求参数中 _eventId 的值与 transition 元素的 on 属性的值是对应的，在接收到_eventId参数后，相应transition会被执行。 -->
+        <transition on="previous" to="viewCart" />
+        <transition on="confirm" to="orderConfirmed" />
+	</view-state>
+
+
+	<view-state id="orderConfirmed" view="orderConfirmed">
+	    <transition on="previous" to="viewOrder" />
+		<transition on="returnToIndex" to="returnToIndex" />
+	</view-state>
+
+    <!-- 
+        end-state 指明了当 flow 执行结束后跳转到初始的 index.jsp 页面。
+        externalRedirect 用在 view 名字中，表示所指向的资源是在 flow 的外部 。
+        servletRelative 则表明所指向资源的路径起始部分与 flow 所在 servlet 相同
+    -->
+	<end-state id="returnToIndex" view="externalRedirect:servletRelative:/index.jsp">
+	</end-state>
+
+
+    <!-- global transition 是一种全局的 transition ，可在 flow 执行的各个 state 中被触发。 -->
+	<global-transitions>
+		<transition on="cancelShopping" to="returnToIndex" />
+	</global-transitions>
+
+
+
+</flow>

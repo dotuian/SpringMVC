@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="
+    http://www.springframework.org/schema/beans 
+    http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <!--  Spring Web MVC 的相关配置放在 spring-webmvc.xml 中  -->
+	<bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<property name="viewClass" value="org.springframework.web.servlet.view.JstlView" />
+		<property name="prefix" value="/WEB-INF/jsp/" />
+		<property name="suffix" value=".jsp" />
+	</bean>
+
+	<bean id="viewMappings" class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">
+	   <!-- HandlerMapping 中指明 /shopping.do 请求由 flowController 来处理 -->
+		<property name="mappings">
+			<value>/shopping.do=flowController</value>
+		</property>
+		
+		<property name="defaultHandler">
+			<!-- UrlFilenameViewController 会将 "/index" 这样的请求映射成名为 "index" 的视图 -->
+			<bean class="org.springframework.web.servlet.mvc.UrlFilenameViewController" />
+		</property>
+	</bean>
+    
+
+    
+    <!-- 
+        Spring Web Flow 2.0 配置小结
+                配置的目的无非是两个：
+                    一是要让客户端的请求转变成 flow 的执行
+                    二是要让 flow 执行过程中、或执行结束后得到的视图能返还给客户端
+     -->
+</beans>
+
+

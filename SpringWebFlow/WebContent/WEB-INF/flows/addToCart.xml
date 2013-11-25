@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<flow xmlns="http://www.springframework.org/schema/webflow"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/webflow 
+    http://www.springframework.org/schema/webflow/spring-webflow-2.0.xsd">
+    
+    
+    <!--  
+        addToCart flow 主要由一个 action-state 构成，完成添加商品到购物车的功能， 
+        addToCart flow 的实现需要有输入参数，即 productId 。
+    -->
+	<on-start>
+		<set name="requestScope.productId" value="requestParameters.productId" />
+	</on-start>
+	
+	
+	<!-- 
+		<action-state> 是专为执行业务逻辑而设的 state 
+		如果某个应用的业务逻辑代码即不适合放在 transition 中由客户端来触发，
+		也不适合放在 Spring Web Flow 自定义的切入点，那么就可以考虑添加 <action-state> 元素专用于该业务逻辑的执行。
+	-->
+	<action-state id="addToCart">
+		<evaluate expression="cart.addItem(productService.getProduct(productId))" />
+		<transition to="productAdded" />
+	</action-state>
+	
+	<end-state id="productAdded" />
+</flow>
