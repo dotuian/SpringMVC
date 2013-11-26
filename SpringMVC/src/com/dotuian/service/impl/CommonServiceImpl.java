@@ -32,5 +32,33 @@ public class CommonServiceImpl implements CommonService {
         }
         return salaryList;
     }
+    
+    @Override
+    public List<String> getDaysOfBirthday() {
+        List<String> years = new ArrayList<String>();
+        for (int i = 1980; i <= 2015; i++) {
+            years.add(String.valueOf(i));
+        }
+        return years;
+    }
+    
+    @Override
+    public List<String> getMonthsOfBirthday() {
+        List<String> months = new ArrayList<String>();
+        for (int i = 1; i <= 12; i++) {
+            months.add(String.valueOf(i));
+        }
+        return months;
+        
+    }
+    
+    @Override
+    public List<String> getYearsOfBirthday() {
+        List<String> days = new ArrayList<String>();
+        for (int i = 1; i <= 31; i++) {
+            days.add(String.valueOf(i));
+        }
+        return days;
+    }
 
 }
