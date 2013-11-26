@@ -4,8 +4,6 @@
 <title>异常处理页面</title>
 </head>
 <body>
-
-aaaaaaaaaaaaaaaa
 	<%
 	    Exception ex = (Exception) request.getAttribute("Exception");
 	%>

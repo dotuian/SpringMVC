@@ -9,19 +9,6 @@
 <jsp:include page="../common/header.jsp"></jsp:include>
 
 <script type="text/javascript">
-    $(document).ready(function() {
-
-        crunchifyAjax = function crunchifyAjax() {
-            $.ajax({
-                url : 'ajaxtest.do',
-                success : function(data) {
-                    $('#result').html(data);
-                }
-            });
-        };
-
-//         crunchifyAjax();
-    })
 </script>
 
 <style type="text/css">
@@ -90,9 +77,11 @@ body {
 				<form:password path="j_password" class="form-control" placeholder="Password" />
 				<form:errors path="j_password" cssClass="error"/>
 			</div>
+			
 			<label class="checkbox">
-                <input type="checkbox" name="_spring_security_remember_me" /><spring:message code="page.remember_me"/>
+                <input type="checkbox" name="_spring_security_remember_me" id="rememberMe"/><spring:message code="page.remember_me"/>
 			</label>
+			
 			
 			<button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
 		</form:form>

@@ -8,82 +8,44 @@
 <jsp:include page="../common/header.jsp"></jsp:include>
 
 <script type="text/javascript">
-    $(document).ready(function() {
-
-        crunchifyAjax = function crunchifyAjax() {
-            $.ajax({
-                url : 'ajaxtest.do',
-                success : function(data) {
-                    $('#result').html(data);
-                }
-            });
-        };
-
-        crunchifyAjax();
-    })
 </script>
 
 </head>
 
 <body>
 
-    <jsp:include page="../common/menu.jsp"></jsp:include>
+    <!-- 菜单栏 -->
+    <jsp:include page="../common/menu.jsp">
+        <jsp:param name="activePage" value="userIndex" />
+    </jsp:include>
     
 
+    <div class="container theme-showcase">
 
-
-    <div class="container">
-
-      <div class="row row-offcanvas row-offcanvas-right">
-
-        <div class="col-xs-12 col-sm-9">
-
-          <div class="panel panel-primary">
-              <!-- Default panel contents -->
-              <div class="panel-heading">ユーザ一覧</div>
-              <table class="table">
-                  <tr>
-                      <th>ID</th>
-                      <th>名前</th>
-                      <th>パスワード</th>
-                      <th>誕生日</th>
-                      <th>値</th>
-                      <th>操作</th>
-                  </tr>
-                  <c:forEach var="stduent" items="${list}">
-                      <tr>
-                          <td>${stduent.id}</td>
-                          <td>${stduent.username}</td>
-                          <td>${stduent.password}</td>
-                          <td>${stduent.birthday}</td>
-                          <td>${stduent.salary}</td>
-                          <td><a href="<c:url value="/sOPointTimerInitAction.do" />">delete</a></td>
-                      <tr>
-                  </c:forEach>
-              </table>
-          </div>
-
-
+        <div class="page-header">
+            <h1>Panels</h1>
         </div>
-
-
-
-
-        <div class="col-xs-6 col-sm-3 sidebar-offcanvas" id="sidebar" role="navigation">
-          <div class="list-group">
-            <a href="#" class="list-group-item active">Link</a>
-            <a href="#" class="list-group-item">Link</a>
-            <a href="#" class="list-group-item">Link</a>
-            <a href="#" class="list-group-item">Link</a>
-            <a href="#" class="list-group-item">Link</a>
-            <a href="#" class="list-group-item">Link</a>
-            <a href="#" class="list-group-item">Link</a>
-            <a href="#" class="list-group-item">Link</a>
-            <a href="#" class="list-group-item">Link</a>
-            <a href="#" class="list-group-item">Link</a>
-          </div>
-        </div><!--/span-->
-      </div><!--/row-->
+         <table class="table">
+             <tr>
+                 <th>ID</th>
+                 <th>姓名</th>
+                 <th>出生年月日</th>
+                 <th>性别</th>
+                 <th>操作</th>
+             </tr>
+             <c:forEach var="stduent" items="${list}">
+                 <tr>
+                     <td>${stduent.id}</td>
+                     <td>${stduent.username}</td>
+                     <td>${stduent.birthday}</td>
+                     <td>${stduent.sex}</td>
+                     <td>
+                        <a href="<%=request.getContextPath()%>/user/editUser.do">Edit</a>
+                        <a href="<%=request.getContextPath()%>/user/deleteUser.do">Delete</a>
+                     </td>
+                 <tr>
+             </c:forEach>
+         </table>
 
       <hr>
 
@@ -91,14 +53,8 @@
         <p>&copy; Company 2013</p>
       </footer>
 
-    </div><!--/.container-->
 
-
-
-
-
-
-
+    </div>
 
 
 </body>

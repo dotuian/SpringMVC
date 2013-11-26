@@ -11,7 +11,13 @@
 </head>
 <body>
 
-	<div class="container theme-showcase">
+    <!-- 菜单栏 -->
+    <jsp:include page="../common/menu.jsp">
+        <jsp:param name="activePage" value="addUser" />
+    </jsp:include>
+
+
+	<div class="container">
 
 		<div class="page-header">
 			<h1>Panels</h1>
@@ -35,29 +41,26 @@
 				  </div>
 				  
 				  <div class="form-group">
-				    <label for="age">Age</label>
-				    <form:input path="age" class="form-control" placeholder="Age"/>
-				    <form:errors path="age" cssClass="error"/>
-				  </div>
-
-				  <div class="form-group">
 				    <label for="sex1">Sex</label><br/>
 				    <label class="radio-inline">
     				    <form:radiobutton path="sex" value="1"/>Male
 				    </label>
 				    <label class="radio-inline">
 				        <form:radiobutton path="sex" value="0"/>Female
-				    </label>
+				    </label><br/>
 				    <form:errors path="sex" cssClass="error"/>
 				  </div>
 				  
-                  <div class="form-group">
+                  <div class="form-group" >
                     <label for="birthday">Birthday</label>
-                    <form:input path="birthday" class="form-control" placeholder="Birthday"/>
+                    <form:select path="year" items="${years}" class="span2"/>
+                    <form:select path="month" items="${months}" class="span2"/>
+                    <form:select path="day" items="${days}" class="span2"/>
                     <form:errors path="birthday" cssClass="error" />
                   </div>
 
                   <div class="form-group">
+                    <label for="age">Salary</label>
 					<form:select path="salary" class="form-control"> 
 						<form:option value="" label="----------------"/> 
 						<form:options items="${salaryList}" itemValue="level" itemLabel="value"/> 
@@ -71,7 +74,8 @@
 	                    <label class="checkbox-inline">
 	                       <form:checkbox path="hobby" value="${hobby.key}"/>${hobby.value} 
 						</label> 
-                    </c:forEach> 
+                    </c:forEach><br/> 
+                    <form:errors path="hobby" cssClass="error"/>
                   </div>
 
 				  <div class="form-group">
@@ -95,6 +99,14 @@
 
 
 
+
+
+
+      <hr>
+
+      <footer>
+        <p>&copy; Company 2013</p>
+      </footer>
 
 
 	</div>
