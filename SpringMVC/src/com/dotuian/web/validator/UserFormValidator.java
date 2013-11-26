@@ -16,7 +16,11 @@ public class UserFormValidator implements Validator {
 
         ValidationUtils.rejectIfEmpty(errors, "username", "ERROR001", new String[]{"姓名"});  
         ValidationUtils.rejectIfEmpty(errors, "password", "ERROR001", new String[]{"密码"});
-        ValidationUtils.rejectIfEmpty(errors, "age", "ERROR001", new String[]{"年龄"});
+        ValidationUtils.rejectIfEmpty(errors, "birthday", "ERROR001", new String[]{"出生年月日"});
+        ValidationUtils.rejectIfEmpty(errors, "sex", "ERROR001", new String[]{"性别"});
+        ValidationUtils.rejectIfEmpty(errors, "salary", "ERROR001", new String[]{"薪资"});
+        ValidationUtils.rejectIfEmpty(errors, "hobby", "ERROR001", new String[]{"业余爱好"});
+        
         UserForm user = (UserForm)target;  
         int length = user.getUsername().length();
         if (length > 20) {
@@ -27,7 +31,7 @@ public class UserFormValidator implements Validator {
             errors.rejectValue("password", "user.password.too_short");
         } else if (length > 20) {
             errors.rejectValue("password", "user.password.too_long");
-        }        
+        }
 
     }
 

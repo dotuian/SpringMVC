@@ -27,7 +27,7 @@ import com.dotuian.web.validator.UserFormValidator;
 
 @Controller("user")
 @RequestMapping("/user")
-public class UserController{
+public class UserController extends BaseController{
 	
 	/**
 	 * 通过注解@Autowired，查找匹配类型的实例来自动装配xampleService实例。
@@ -67,6 +67,12 @@ public class UserController{
      */
     @RequestMapping(value = "/login.do", method = RequestMethod.GET)
     public ModelAndView login() {
+        
+        // 登录用户的信息
+        if (this.getLoginUserName() != null) {
+            return new ModelAndView("redirect:/user/index.do");
+        }
+        
         ModelAndView mv = new ModelAndView();
         mv.addObject(new LoginForm());
         mv.setViewName("/user/login");
@@ -101,6 +107,10 @@ public class UserController{
 	@RequestMapping(value = "/index.do", method = RequestMethod.GET)
 	public ModelAndView getUser() {
 		ModelAndView mv = new ModelAndView();
+		
+
+        System.out.println("登录的用户信息：" + this.getLoginUserName());
+		
 		
 		List<UserDto> list = userService.getAllUser();
 		mv.addObject("list", list);
@@ -144,7 +154,7 @@ public class UserController{
      * @param result
      * @return
      */
-    @RequestMapping(value = "/updateUser.do", method = RequestMethod.POST)
+    @RequestMapping(value = "/editUser.do", method = RequestMethod.POST)
     public ModelAndView updateUser(@ModelAttribute @Validated UserForm userForm, BindingResult result) {
         
         
@@ -161,23 +171,30 @@ public class UserController{
         ModelAndView mv = new ModelAndView();
         mv.addObject("hobbyMap", commonService.getHobbyMap());
         mv.addObject("salaryList", commonService.getSalaryList());
-        
+        mv.addObject("years", commonService.getYearsOfBirthday());
+        mv.addObject("months", commonService.getMonthsOfBirthday());
+        mv.addObject("days", commonService.getDaysOfBirthday());
+
         mv.addObject(new UserForm());
         mv.setViewName("/user/add");
         return mv;
     }
-    
+
     /**
      * 保存添加的用户
      * @return
      */
     @RequestMapping(value = "/addUser.do", method = RequestMethod.POST)
-    public ModelAndView saveUser(@ModelAttribute @Validated UserForm userForm, BindingResult result) {
+    public ModelAndView saveUser(@ModelAttribute @Validated UserForm userForm,
+            BindingResult result) {
 
         ModelAndView mv = new ModelAndView();
         mv.addObject("hobbyMap", commonService.getHobbyMap());
         mv.addObject("salaryList", commonService.getSalaryList());
-        
+        mv.addObject("years", commonService.getYearsOfBirthday());
+        mv.addObject("months", commonService.getMonthsOfBirthday());
+        mv.addObject("days", commonService.getDaysOfBirthday());
+
         System.out.println(userForm.toString());
 
         // 校验没有通过
@@ -186,10 +203,10 @@ public class UserController{
             mv.setViewName("/user/add");
             return mv;
         }
-        
+
         userService.insertUser(userForm.toUserDto());
-        
-        return new ModelAndView("redirect:/user/addUser.do");
+
+        return new ModelAndView("redirect:/user/index.do");
     }
     
     

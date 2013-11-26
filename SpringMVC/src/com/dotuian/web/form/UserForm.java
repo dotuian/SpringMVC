@@ -3,6 +3,8 @@ package com.dotuian.web.form;
 import java.util.List;
 import java.util.Random;
 
+import com.dotuian.common.constants.Constant;
+import com.dotuian.common.utils.DateUtils;
 import com.dotuian.service.dto.UserDto;
 
 public class UserForm {
@@ -12,6 +14,9 @@ public class UserForm {
     private String age;
     private String sex;
     private String birthday;
+    private String year;
+    private String month;
+    private String day;
     private String salary;
     private List<String> hobby;
     private String memo;
@@ -69,6 +74,30 @@ public class UserForm {
         this.birthday = birthday;
     }
 
+    public String getYear() {
+        return year;
+    }
+
+    public void setYear(String year) {
+        this.year = year;
+    }
+
+    public String getMonth() {
+        return month;
+    }
+
+    public void setMonth(String month) {
+        this.month = month;
+    }
+
+    public String getDay() {
+        return day;
+    }
+
+    public void setDay(String day) {
+        this.day = day;
+    }
+
     public String getSalary() {
         return salary;
     }
@@ -119,12 +148,12 @@ public class UserForm {
         if (this.getAge() != null) {
             dto.setAge(Integer.valueOf(this.getAge()));
         }
-//        dto.setBirthday(DateUtils.convertToSqlDate(DateUtils.parseDate(
-//                this.getBirthday(), Constant.DATE_FORMAT_8BIT)));
+        dto.setBirthday(DateUtils.convertToSqlDate(DateUtils.parseDate(
+                this.getBirthday(), Constant.DATE_FORMAT_8BIT)));
         dto.setHobby(this.getHobby());
         dto.setMemo(this.getMemo());
         dto.setPassword(this.getPassword());
-        if(this.getSalary() != null){
+        if(this.getSalary() != null && !"".equals(this.getSalary())){
             dto.setSalary(Double.valueOf(this.getSalary()));
         }
         dto.setSex(this.getSex());
