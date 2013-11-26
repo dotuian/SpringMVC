@@ -31,8 +31,8 @@ public class UserDaoImpl extends SqlSessionDaoSupport implements UserDao {
 	/**
 	 * 
 	 */
-	public UserEntity getUserById(String userId) {
-		UserEntity user = this.getSqlSession().selectOne("selectUserById", userId);
+	public UserEntity getUserById(long id) {
+		UserEntity user = this.getSqlSession().selectOne("selectUserById", id);
 		return user;
 	}
 	
@@ -46,16 +46,16 @@ public class UserDaoImpl extends SqlSessionDaoSupport implements UserDao {
 		return dataList;
 	}
 
-	public int insertUser(UserDto user) {
+	public int insertUser(UserEntity user) {
         return this.getSqlSession().insert("insertUser", user);
 	}
 
-	public int updateUser(UserDto user) {
+	public int updateUser(UserEntity user) {
         return this.getSqlSession().update("updateUser", user);
 	}
 
-	public int deleteUser(String userId) {
-		return this.getSqlSession().delete("deleteUser", userId);
+	public int deleteUser(long id) {
+		return this.getSqlSession().delete("deleteUser", id);
 	}
 	
 	

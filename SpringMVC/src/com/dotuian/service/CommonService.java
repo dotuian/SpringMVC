@@ -11,4 +11,10 @@ public interface CommonService {
 
     public List<SalaryDto> getSalaryList();
 
+    public List<String> getYearsOfBirthday();
+
+    public List<String> getMonthsOfBirthday();
+
+    public List<String> getDaysOfBirthday();
+
 }

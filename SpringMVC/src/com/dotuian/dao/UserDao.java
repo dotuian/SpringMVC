@@ -7,17 +7,17 @@ import com.dotuian.service.dto.UserDto;
 
 public interface UserDao {
 
-	public UserEntity getUserById(String userId);
+	public UserEntity getUserById(long id);
 	
 	public UserEntity getUserByName(String username);
 
 	public List<UserEntity> getAllUser();
 
-	public int insertUser(UserDto user);
+	public int insertUser(UserEntity user);
 
-	public int updateUser(UserDto user);
+	public int updateUser(UserEntity user);
 
-	public int deleteUser(String userID);
+	public int deleteUser(long id);
 	
 	public int selectUserCount();
 

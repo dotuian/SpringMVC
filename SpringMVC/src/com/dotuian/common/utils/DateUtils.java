@@ -30,11 +30,11 @@ public class DateUtils {
     }
     
     public static java.sql.Date convertToSqlDate(java.util.Date date){
-        return (java.sql.Date) date;
+        return new java.sql.Date(date.getTime());
     }
 
     public static java.util.Date convertToUtilDate(java.sql.Date date) {
-        return (java.util.Date) date;
+        return new java.util.Date(date.getTime());
     }
     
 
