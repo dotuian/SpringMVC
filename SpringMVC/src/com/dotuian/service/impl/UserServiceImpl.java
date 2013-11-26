@@ -51,24 +51,29 @@ public class UserServiceImpl implements UserService {
 	}
 
     public UserDto getUser(String userId) {
-        UserEntity entity = userDao.getUserById(userId);
+        UserEntity entity = userDao.getUserById(Long.valueOf(userId));
 
         UserDto user = entity.toUserDto();
 
         return user;
     }
 
-	public int insertUser(UserDto user) {
-	    return userDao.insertUser(user);
-	}
+    public int insertUser(UserDto user) {
 
-	public int updateUser(UserDto user) {
-		return userDao.updateUser(user);
-	}
+//        MessageBuilder builder = new MessageBuilder();
+        
+        UserEntity entity = user.toUserEntity();
+        return userDao.insertUser(entity);
+    }
 
-	public int deleteUser(String userId) {
-		return userDao.deleteUser(userId);
-	}
+    public int updateUser(UserDto user) {
+        UserEntity entity = user.toUserEntity();
+        return userDao.updateUser(entity);
+    }
+
+    public int deleteUser(String userId) {
+        return userDao.deleteUser(Long.valueOf(userId));
+    }
 
 	public int selectUserCount() {
 		// TODO Auto-generated method stub
