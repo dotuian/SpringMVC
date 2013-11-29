@@ -8,6 +8,21 @@
 <jsp:include page="common/header.jsp"></jsp:include>
 
 <script type="text/javascript">
+$(document).ready(function() {
+
+    crunchifyAjax = function crunchifyAjax() {
+        $.ajax({
+            url : 'user/ajaxtest.do',
+            success : function(data) {
+            	alert(data);
+                $('#result').html(data);
+            }
+        });
+    };
+
+    crunchifyAjax();
+})
+
 </script>
 
 </head>
@@ -24,6 +39,8 @@
 		Welcome ! this is home page .
 
 		<hr>
+        <div id="result"></div>
+		
 
 		<footer>
 			<p>&copy; Company 2013</p>
