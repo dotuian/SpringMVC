@@ -1,9 +1,8 @@
 package com.dotuian.web.controller;
 
-import java.util.Date;
 import java.util.List;
-import java.util.Random;
 
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
@@ -14,7 +13,6 @@ import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.dotuian.service.CommonService;
@@ -28,7 +26,9 @@ import com.dotuian.web.validator.UserFormValidator;
 @Controller("user")
 @RequestMapping("/user")
 public class UserController extends BaseController{
-	
+
+    Logger log = Logger.getLogger(UserController.class);
+    
 	/**
 	 * 通过注解@Autowired，查找匹配类型的实例来自动装配xampleService实例。
 	 * 就不要再XML配置文件中配置注入了。
@@ -210,17 +210,4 @@ public class UserController extends BaseController{
     }
     
     
-    //==================================================
-    // Ajax Request
-    //==================================================
-    @RequestMapping(value = "/ajaxtest", method = RequestMethod.GET)
-    public @ResponseBody
-    String getTime() {
-        Random rand = new Random();
-        float r = rand.nextFloat() * 100;
-        String result = "<br>Next Random # is <b>" + r + "</b>. Generated on <b>" + new Date().toString() + "</b>";
-        System.out.println("Debug Message from Ajax Test." + new Date().toString());
-        return result;
-    }
-	
 }
