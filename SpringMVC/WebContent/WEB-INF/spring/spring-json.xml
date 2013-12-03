@@ -3,48 +3,58 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.2.xsd">
 
+    <!-- spring json -->
+    <bean name="jsonView" class="org.springframework.web.servlet.view.json.JsonView">
+        <property name="jsonWriter"><ref bean="jsonWriter" /></property>
+        <property name="encoding"><value>UTF-8</value></property>
+        <property name="contentType"><value>application/json</value></property>
+        <property name="jsonErrors">
+            <list>
+                <ref bean="statusError" />
+                <ref bean="modelFlagError" />
+            </list>
+        </property>
+    </bean>
 
-	<bean name="sojoJsonWriter" class="org.springframework.web.servlet.view.json.writer.sojo.SojoJsonStringWriter">
-		<property name="enableJsonConfigSupport">
-			<value>true</value>
-		</property>
-		<property name="convertAllMapValues">
-			<value>true</value>
-		</property>
+	<bean name="jsonWriter" class="org.springframework.web.servlet.view.json.writer.sojo.SojoJsonStringWriter">
+		<property name="enableJsonConfigSupport"><value>true</value></property>
+		<property name="convertAllMapValues"><value>true</value></property>
 	</bean>
 
-	<bean name="statusError" class="org.springframework.web.servlet.view.json.error.HttpStatusError">
-		<property name="errorCode">
-			<value>311</value>
-		</property>
-	</bean>
 
-	<bean name="modelflagError" class="org.springframework.web.servlet.view.json.error.ModelFlagError">
-		<property name="name">
-			<value>success</value>
+    <bean id="exceptionResolver" class="org.springframework.web.servlet.view.json.exception.JsonExceptionResolver">
+		<property name="exceptionView">
+			<value>jsonView</value>
 		</property>
-		<property name="value">
-			<value>false</value>
-		</property>
-	</bean>
-
-	<!-- spring json -->
-	<bean name="jsonView" class="org.springframework.web.servlet.view.json.JsonView">
-		<property name="jsonWriter">
-			<ref bean="sojoJsonWriter" />
-		</property>
-		
-		<property name="encoding">
-			<value>UTF-8</value>
-		</property>
-		<property name="contentType">
-			<value>application/json</value>
-		</property>
-		<property name="jsonErrors">
+		<property name="errorHandler">
 			<list>
 				<ref bean="statusError" />
-				<ref bean="modelflagError" />
+				<ref bean="modelFlagError" />
+			</list>
+		</property>
+		<property name="exceptionHandler">
+			<list>
+				<ref bean="exceptionMessageExceptionHandler" />
+				<ref bean="stackTraceExceptionHandler" />
 			</list>
 		</property>
 	</bean>
+
+
+    <!-- 通过response.setStatus(errorCode)设置一个新返回状态  -->
+	<bean name="statusError" class="org.springframework.web.servlet.view.json.error.HttpStatusError">
+		<property name="errorCode"><value>311</value></property>
+	</bean>
+
+	<bean name="modelFlagError" class="org.springframework.web.servlet.view.json.error.ModelFlagError">
+		<property name="name"><value>success</value></property>
+		<property name="value"><value>false</value></property>
+	</bean>
+
+
+	<bean name="exceptionMessageExceptionHandler" class="org.springframework.web.servlet.view.json.exception.ExceptionMessageExceptionHandler" />
+	<bean name="stackTraceExceptionHandler" class="org.springframework.web.servlet.view.json.exception.StackTraceExceptionHandler" />
+
+	
+
 </beans>
