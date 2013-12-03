@@ -32,6 +32,7 @@
 		<param-value>6000</param-value>
 	</context-param> 
 	
+    <!-- 上下文配置加载路径,加载/WEB-INF/spring/下所有的XML文件 -->
     <context-param>
         <param-name>contextConfigLocation</param-name>
         <param-value>
@@ -99,11 +100,13 @@
 		</init-param>
 		<load-on-startup>1</load-on-startup>
 	</servlet>
+	<!-- 拦截所有以do结尾的请求 -->    
 	<servlet-mapping>
 		<servlet-name>dispatcherServlet</servlet-name>
 		<url-pattern>*.do</url-pattern>
 	</servlet-mapping>
     <servlet-mapping>
+    <!-- 拦截所有以json结尾的请求 -->
         <servlet-name>dispatcherServlet</servlet-name>
         <url-pattern>*.json</url-pattern>
     </servlet-mapping>
