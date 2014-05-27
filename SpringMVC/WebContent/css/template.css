@@ -1,0 +1,71 @@
+html body {
+	width: 100%;
+	height: 100%;
+	padding: 0px;
+	margin: 0px;
+	overflow: hidden;
+	font-family: arial;
+	font-size: 10px;
+	color: #6e6e6e;
+}
+
+body{
+color: #74655f;
+font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+}
+
+div {
+	display: block;
+}
+
+#header{
+	background-color: #000;
+	height: 60px;
+	line-height: 60px;
+	border-bottom: 1px solid #191919;
+	z-index: 100;
+	margin-bottom: 1px;
+}
+
+#wrapper {
+	margin: 0 auto;
+	width: 900px;
+}
+
+
+#container {
+	width: 960px;
+	margin: 0 auto;
+	padding-bottom: 60px; /*给footer预留的空间*/
+}
+
+#sidebar {
+	width: 225px;
+	height: 500px;
+	float: left;
+	margin: 
+	background-image: url("http://themeforest.jannek.fi/proadmin/images/bg_leftcolumn.jpg");
+}
+
+#content {
+	float: left;
+	border: 1px solid #bab9b9;
+	background-color: #FFFFFF;
+	
+	width: 670px;
+	padding: 15px;
+	
+}
+
+
+
+
+#footer {
+	height: 70px;
+	clear: both;
+	margin: 40px 0 0 0;
+	background: #074d61
+		url(http://www.css88.com/wp-content/themes/feiwen/images/footerbg.gif)
+		repeat-x;
+	padding: 0;
+}
