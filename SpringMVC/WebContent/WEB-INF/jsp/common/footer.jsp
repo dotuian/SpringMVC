@@ -1,9 +1,11 @@
-    <footer class="footer">
-      <div class="container">
-        <p class="pull-right"><a href="#">Back to top</a></p>
-        <p>
-          Designed and built with all the love in the world <a href="http://twitter.com/twitter" target="_blank">@twitter</a> by <a href="http://twitter.com/mdo" target="_blank">@mdo</a> and <a href="http://twitter.com/fat" target="_blank">@fat</a>.<br />
-          Code licensed under the <a href="http://www.apache.org/licenses/LICENSE-2.0" target="_blank">Apache License v2.0</a>. Documentation licensed under <a href="http://creativecommons.org/licenses/by/3.0/">CC BY 3.0</a>.
-        </p>
-      </div>
-    </footer>
+<%@page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+
+<!--页面底部  开始-->
+<div id="footer">
+    <p>
+        <a href="#" target="true">关于我们</a>|<a href="#" target="true">网站声明</a>
+    </p>
+    <p>版权所有©2008-2015 XXX信息技术中心&nbsp;&nbsp;XXXXXXXXXXX</p>
+    <p>京ICP备XXXXXXXX号</p>
+</div>
+<!--页面底部  结束-->  

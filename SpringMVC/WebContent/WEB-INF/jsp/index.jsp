@@ -1,5 +1,4 @@
-<%@page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <html>
 <head>
@@ -33,7 +32,7 @@ $(document).ready(function() {
     
     
     $("#test3").change(function(){
-    	console.log($(this).val());
+        console.log($(this).val());
         $.ajax({
             url : 'ajax/ajaxtest3.json',
             data : {'param' : $(this).val()},
@@ -42,7 +41,7 @@ $(document).ready(function() {
                 $('#result3').html(JSON.stringify(data.result));
             }
         });
-    	
+        
     });
     
     $("#test4").change(function(){
@@ -51,13 +50,13 @@ $(document).ready(function() {
             url : 'ajax/ajaxtest4.json',
             data : {'param' : $(this).val()},
             async : false,   //禁止ajax的异步操作，使之顺序执行。 
-			dataType : 'json',
-			success : function(data) {
-				$('#result4').html(JSON.stringify(data));
-			}
-		});
+            dataType : 'json',
+            success : function(data) {
+                $('#result4').html(JSON.stringify(data));
+            }
+        });
 
-	});
+    });
 
 })
 </script>
@@ -66,57 +65,83 @@ $(document).ready(function() {
 
 <body>
 
-	<!-- 菜单栏 -->
-	<jsp:include page="common/menu.jsp">
-		<jsp:param name="activePage" value="home" />
-	</jsp:include>
+    <jsp:include page="common/top.jsp">
+        <jsp:param name="activePage" value="home" />
+    </jsp:include>
 
+    <!-- context begin-->
+    <div class="w100">
 
-	<div class="container theme-showcase">
-		Welcome ! this is home page .
+        <jsp:include page="common/left.jsp" />
+    
+        <jsp:include page="common/menu.jsp" />
 
-        <div class="page-header">
-            <h1>返回纯字符串类型</h1>
+        <!-- 二级菜单 -->
+        <div class="secondMenu">
+            <ul class="clearfix">
+                <li><a href="#" class="checked">客户来店登记</a></li>
+                <li><a href="#">来店信息确认</a></li>
+                <li><a href="#">来店信息查询</a></li>
+            </ul>
         </div>
-        <div class="row">
-            <div id="result1"></div>
-        </div>
+        <!-- 二级菜单 -->
         
-        
-        <div class="page-header">
-            <h1>返回对象类型</h1>
+        <!-- 正文 -->
+        <div class="right">
+            <div class="name-tb  mt10">
+                <span class="pl20 fb">Ajax Sample(返回纯字符串类型)</span>
+            </div>
+            <div class="dbsx">
+                <ul>
+                    <li>
+                        <div id="result1"></div>
+                    </li>
+                </ul>
+            </div>
+
+
+            <div class="name-tb  mt10">
+                <span class="pl20 fb">Ajax Sample(返回对象类型)</span>
+            </div>
+            <div class="dbsx">
+                <ul>
+                    <li>
+                        <div id="result2"></div>
+                    </li>
+                </ul>
+            </div>
+            
+            
+            <div class="name-tb  mt10">
+                <span class="pl20 fb">传递参数(返回Map)</span>
+            </div>
+            <div class="dbsx">
+                <input type="text" id="test3" name="param3">
+                <div id="result3"></div>
+            </div>     
+
+            
+            
+            <div class="name-tb  mt10">
+                <span class="pl20 fb">传递参数(返回List)</span>
+            </div>
+            <div class="dbsx">
+                <input type="text" id="test4" name="param4">
+                <div id="result4"></div>
+            </div>     
+            
+            
+            
+            
+            
+            
+            
+
         </div>
-        <div class="row">
-            <div id="result2"></div>
-        </div>        
-		
-        <div class="page-header">
-            <h1>传递参数(返回Map)</h1>
-        </div>
-        <div class="row">
-            <input type="text" id="test3" name="param3">
-            <div id="result3"></div>
-        </div>        
+        <!-- 正文 -->
 
-        <div class="page-header">
-            <h1>传递参数(返回List)</h1>
-        </div>
-        <div class="row">
-            <input type="text" id="test4" name="param4">
-            <div id="result4"></div>
-        </div>       
+    </div>
 
-
-
-
-
-
-		<footer>
-			<p>&copy; Company 2013</p>
-		</footer>
-
-
-	</div>
 
 
 </body>

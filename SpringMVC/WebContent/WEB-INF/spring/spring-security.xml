@@ -32,7 +32,7 @@
         <!-- Session超时后跳转到/user/login.do -->
 		<session-management invalid-session-url="/user/login.do?message=timeout">
 	        <!-- 阻止用户重复登陆。max-sessions表示最多允许多少次重复登录。error-if-maximum-exceeded为true,表示第二次登录会被阻止；error-if-maximum-exceeded为false,表示第二次登录会使第一次登录失效。 -->
-			<concurrency-control max-sessions="1" error-if-maximum-exceeded="true" />
+			<concurrency-control max-sessions="10" error-if-maximum-exceeded="true" />
 		</session-management>
 
         <remember-me />
